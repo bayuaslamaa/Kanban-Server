@@ -1,8 +1,14 @@
-const { Project } = require("../models/index")
+const { Project, UserProject, Task } = require("../models/index")
 
 class ProjectController {
     static getAll(req, res, next) {
-        Project.findAll()
+        UserProject.findAll({
+            include: [{
+                model: Project,
+                include: [Task]
+            }
+            ]
+        })
             .then(result => {
                 res.status(200).json({
                     projects: result
@@ -16,13 +22,27 @@ class ProjectController {
             title: req.body.title,
             UserId: req.currentUserId
         }
+        let created = {}
         Project.create(newProject)
             .then(result => {
                 const { id, title, UserId } = result
-                return res.status(201).json({
+                created = {
                     id,
                     title,
                     UserId
+                }
+                return UserProject.create({
+                    ProjectId: id,
+                    UserId
+                })
+            })
+            .then(data => {
+                // console.log(data)
+                return res.status(201).json({
+                    id: created.id,
+                    title: created.title,
+                    UserId: created.UserId,
+                    UserProjectId: data.id
                 })
             })
             .catch(err => next(err))
@@ -42,6 +62,7 @@ class ProjectController {
         })
             .catch(err => next(err))
     }
+
 }
 
 

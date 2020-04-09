@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   //   category: DataTypes.STRING,
   //   ProjectId: DataTypes.INTEGER
   // }, {});
-  class Task extends sequelize.Sequelize.Model{ }
+  class Task extends sequelize.Sequelize.Model { }
   Task.init({
     title: {
       type: DataTypes.STRING,
@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     category: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 'prelog'
     },
     ProjectId: {
       type: DataTypes.INTEGER,

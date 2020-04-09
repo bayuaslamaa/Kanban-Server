@@ -8,5 +8,7 @@ router.get("/", ProjectController.getAll)
 router.post("/", ProjectController.create)
 router.delete("/:id", authorization, ProjectController.delete)
 
+// router.post("/task", ProjectController.addTask)
+
 
 module.exports = router

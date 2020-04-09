@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   Project.init({
     title: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false
     },
     UserId: {

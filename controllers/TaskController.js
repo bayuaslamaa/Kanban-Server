@@ -2,8 +2,13 @@ const { Task, Project } = require("../models/index")
 
 class TaskController {
     static getAll(req, res, next) {
-        Task.findAll()
+        Task.findAll({
+            where: {
+                'ProjectId': req.headers.ProjectId
+            }
+        })
             .then(result => {
+                console.log(result)
                 return res.status(200).json({
                     tasks: result
                 })
@@ -15,12 +20,10 @@ class TaskController {
     static create(req, res, next) {
         const {
             title,
-            category,
             ProjectId
         } = req.body
         let newData = {
             title,
-            category,
             ProjectId
         }
         Project.findOne({
@@ -58,6 +61,30 @@ class TaskController {
         }).catch(err => {
             return next(err)
         })
+    }
+
+    static update(req, res, next) {
+        let id = req.params.id
+        Task.update({
+            category: req.body.category
+        }, {
+            where: {
+                'id': id
+            }
+        }).then(result => {
+            const {
+                id,
+                title,
+                category,
+                ProjectId
+            } = result
+            res.status(201).json({
+                id,
+                title,
+                category,
+                ProjectId
+            })
+        }).catch(err => next(err))
     }
 }
 
