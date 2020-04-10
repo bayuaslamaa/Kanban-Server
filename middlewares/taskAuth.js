@@ -7,12 +7,16 @@ module.exports = (req, res, next) => {
         }
     }).then(result => {
         if (result) {
+            // console.log(result)
             return next()
         } else {
             return next({
                 name: 'Unauthorized'
             })
         }
-    }).catch(err => next(err))
+    }).catch(err => {
+        console.log(err)
+        next(err)
+    })
 
 }

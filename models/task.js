@@ -9,7 +9,12 @@ module.exports = (sequelize, DataTypes) => {
   Task.init({
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      // validate: {
+      //   notEmty: {
+      //     msg: `title must be filled`
+      //   }
+      // }
     },
     category: {
       type: DataTypes.STRING,

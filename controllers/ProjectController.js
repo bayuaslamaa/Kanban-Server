@@ -7,7 +7,10 @@ class ProjectController {
                 model: Project,
                 include: [Task]
             }
-            ]
+            ],
+            where: {
+                UserId: req.currentUserId
+            }
         })
             .then(result => {
                 res.status(200).json({

@@ -4,7 +4,7 @@ class TaskController {
     static getAll(req, res, next) {
         Task.findAll({
             where: {
-                'ProjectId': req.headers.ProjectId
+                'ProjectId': req.body.ProjectId
             }
         })
             .then(result => {
@@ -65,6 +65,7 @@ class TaskController {
 
     static update(req, res, next) {
         let id = req.params.id
+        console.log(id, 'ID')
         Task.update({
             category: req.body.category
         }, {
@@ -72,19 +73,12 @@ class TaskController {
                 'id': id
             }
         }).then(result => {
-            const {
-                id,
-                title,
-                category,
-                ProjectId
-            } = result
             res.status(201).json({
-                id,
-                title,
-                category,
-                ProjectId
+                msg: 'success'
             })
-        }).catch(err => next(err))
+        }).catch(err => {
+            next(err)
+        })
     }
 }
 
