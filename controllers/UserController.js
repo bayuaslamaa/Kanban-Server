@@ -153,6 +153,21 @@ class UserController {
             })
             .catch(err => next(err))
     }
+    static quitProject(req, res, next) {
+        const { ProjectId } = req.body
+        let id = req.currentUserId
+        UserProject.destroy({
+            where: {
+                'ProjectId': ProjectId,
+                'UserId': id
+            }
+        }).then(data => {
+            res.status(200).json({
+                msg: `User with id ${id} success quit the project with ProjectId: ${ProjectId}`
+            })
+        })
+            .catch(err => next(err))
+    }
 }
 
 module.exports = UserController
