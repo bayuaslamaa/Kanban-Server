@@ -49,11 +49,11 @@ class TaskController {
     }
 
     static delete(req, res, next) {
+        if(req.currentProjectId)
         let id = req.params.id
         Task.destroy({
             where: {
-                'id': id,
-                'ProjectId': req.currentProjectId
+                'id': id
             }
         }).then(result => {
             return res.status(200).json({
