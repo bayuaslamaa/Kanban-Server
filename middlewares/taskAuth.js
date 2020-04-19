@@ -7,15 +7,20 @@ module.exports = (req, res, next) => {
         }
     }).then(result => {
         if (result) {
-            // console.log(result)
-            return next()
+            if(result.ProjectId=== req.currentProjectId){
+                return next()
+            }else{
+                return next({
+                    name: 'Unauthorized'
+                })
+            }
         } else {
             return next({
                 name: 'Unauthorized'
             })
         }
     }).catch(err => {
-        console.log(err)
+        // console.log(err)
         next(err)
     })
 

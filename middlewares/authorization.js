@@ -8,7 +8,14 @@ module.exports = (req, res, next) => {
         }
     }).then(result => {
         if (result) {
-            return next()
+            if(result.UserId=== req.currentUserId){
+                req.currentProjectId = result.id
+                return next()
+            }else{
+                return next({
+                    name: 'Unauthorized'
+                })
+            }
         } else {
             return next({
                 name: 'Unauthorized'
