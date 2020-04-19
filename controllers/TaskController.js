@@ -52,7 +52,8 @@ class TaskController {
         let id = req.params.id
         Task.destroy({
             where: {
-                'id': id
+                'id': id,
+                'ProjectId': req.currentProjectId
             }
         }).then(result => {
             return res.status(200).json({
