@@ -49,7 +49,6 @@ class TaskController {
     }
 
     static delete(req, res, next) {
-        if(req.currentProjectId)
         let id = req.params.id
         Task.destroy({
             where: {
