@@ -3,17 +3,18 @@ const { Task } = require("../models/index")
 module.exports = (req, res, next) => {
     Task.findOne({
         where: {
-            'id': req.params.id
+            'id': req.params.id,
+            'ProjectId': req.currentProjectId
         }
     }).then(result => {
         if (result) {
-            if(result.ProjectId=== req.currentProjectId){
+            // if(result.ProjectId=== req.currentProjectId){
                 return next()
-            }else{
-                return next({
-                    name: 'Unauthorized'
-                })
-            }
+            // }else{
+            //     return next({
+            //         name: 'Unauthorized'
+            //     })
+            // }
         } else {
             return next({
                 name: 'Unauthorized'
