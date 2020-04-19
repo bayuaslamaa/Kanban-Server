@@ -108,12 +108,10 @@ class UserController {
                     id: result.id,
                     email: result.email
                 }
-                let token = generateToken(payload)
 
                 res.status(201).json({
                     id: payload.id,
-                    email: payload.email,
-                    access_token: token
+                    email: payload.email
                 })
             })
             .catch(err => {
